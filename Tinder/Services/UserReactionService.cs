@@ -49,4 +49,40 @@ public class UserReactionService(AppDbcontext dbcontext, TokenInteractions token
             About = u.About,
         }).ToList();
     }
+    
+    public async Task<List<UserPreviewDTO>> GetMatches(string? token)
+    {
+        var userId = Guid.Parse(tokenService.GetIdFromToken(token));
+
+        var likedByMe = await dbcontext.UserPreferences
+            .Where(p => p.FromUserId == userId && p.IsLiked)
+            .Select(p => p.ToUserId)
+            .ToListAsync();
+
+        var likedMeBack = await dbcontext.UserPreferences
+            .Where(p => likedByMe.Contains(p.FromUserId)
+                        && p.ToUserId == userId
+                        && p.IsLiked)
+            .Select(p => p.FromUserId)
+            .ToListAsync();
+
+        var matchedUserIds = likedMeBack;
+
+        var matchedUsers = await dbcontext.Users
+            .Where(u => matchedUserIds.Contains(u.Id))
+            .ToListAsync();
+
+        return matchedUsers.Select(user => new UserPreviewDTO
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            PhotoUrl = user.PhotoUrl,
+            Age = user.Age,
+            Course = user.Course,
+            About = user.About,
+            Telegram = user.Telegram
+        }).ToList();
+    }
+
 }

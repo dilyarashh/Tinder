@@ -86,4 +86,19 @@ public class UserPreferenceService (AppDbcontext dbcontext, TokenInteractions to
         await dbcontext.UserPreferences.AddAsync(pref);
         await dbcontext.SaveChangesAsync();
     }
+    
+    public async Task RemoveReaction(string? token, Guid toUserId)
+    {
+        var fromUserId = Guid.Parse(tokenService.GetIdFromToken(token));
+
+        var preference = await dbcontext.UserPreferences
+            .FirstOrDefaultAsync(p => p.FromUserId == fromUserId && p.ToUserId == toUserId);
+
+        if (preference == null)
+            throw new NotFoundException("Вы еще не оценивали этого пользователя — нечего удалять!");
+
+        dbcontext.UserPreferences.Remove(preference);
+        await dbcontext.SaveChangesAsync();
+    }
+
 }

@@ -7,4 +7,6 @@ public interface IUserPreferenceService
 {
     Task<UserPreviewDTO?> GetNextUser(string? token, FilterDTO filters);
     Task SetPreference(string? token, Guid toUserId, bool isLiked);
+    Task RemoveReaction(string? token, Guid toUserId);
+
 }

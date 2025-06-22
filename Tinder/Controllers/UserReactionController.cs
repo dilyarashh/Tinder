@@ -36,4 +36,17 @@ public class UserReactionController(IUserReactionService reactionService, TokenI
         var users = await reactionService.GetDislikedUsers(token);
         return Ok(users);
     }
+    
+    [HttpGet("matches")]
+    [SwaggerOperation(Summary = "Получение пользователей, c которым случился мэтч")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Данные получены")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Пользователь не авторизован", typeof(Error))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Ошибка сервера")]
+    public async Task<IActionResult> GetMatches()
+    {
+        var token = Request.Headers.Authorization.ToString().Replace("Bearer ", "");
+        var matches = await reactionService.GetMatches(token);
+        return Ok(matches);
+    }
+
 }

@@ -39,4 +39,17 @@ public class UserPreferenceController (IUserPreferenceService preferenceService,
         await preferenceService.SetPreference(token, toUserId, isLiked);
         return Ok();
     }
+    
+    [HttpDelete("{toUserId}")]
+    [SwaggerOperation(Summary = "Удаление поставленной реакции")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Реакция удалена")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Пользователь не авторизован", typeof(Error))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Ошибка сервера")]
+    public async Task<IActionResult> RemoveReaction(Guid toUserId)
+    {
+        var token = Request.Headers.Authorization.ToString().Replace("Bearer ", "");
+        await preferenceService.RemoveReaction(token, toUserId);
+        return Ok();
+    }
+
 }
