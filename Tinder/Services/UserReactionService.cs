@@ -25,8 +25,7 @@ public class UserReactionService(AppDbcontext dbcontext, TokenInteractions token
             PhotoUrl = u.PhotoUrl,
             Course = u.Course,
             Age = u.Age,
-            About = u.About,
-            Telegram = u.Telegram,
+            About = u.About
         }).ToList();
     }
 
