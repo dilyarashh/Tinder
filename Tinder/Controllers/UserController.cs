@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tinder.Services.IServices;
 using Tinder.SupportiveServices.Token;
-using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Tinder.DBContext.DTO.User;
 using Tinder.DBContext.Models;
