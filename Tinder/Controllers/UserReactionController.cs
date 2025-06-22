@@ -38,7 +38,7 @@ public class UserReactionController(IUserReactionService reactionService, TokenI
     }
     
     [HttpGet("matches")]
-    [SwaggerOperation(Summary = "Получение пользователей, c которым случился мэтч")]
+    [SwaggerOperation(Summary = "Получение пользователей, c которыми случился мэтч")]
     [SwaggerResponse(StatusCodes.Status200OK, "Данные получены")]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "Пользователь не авторизован", typeof(Error))]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "Ошибка сервера")]
