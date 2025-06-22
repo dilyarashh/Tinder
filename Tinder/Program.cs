@@ -97,6 +97,7 @@ builder.Services.AddSingleton<TokenInteractions>();
 builder.Services.AddSingleton<IAuthorizationHandler, TokenBlackListPolicy>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserPreferenceService, UserPreferenceService>();
+builder.Services.AddScoped<IUserReactionService, UserReactionService>();
 builder.Services.AddScoped<HashPassword>();
 
 var app = builder.Build();

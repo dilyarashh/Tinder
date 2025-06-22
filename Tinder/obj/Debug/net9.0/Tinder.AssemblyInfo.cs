@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tinder")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ddf22cb878e9ce84cb894b4f8daf217de6de18d1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4ad97e582fe15057a871d08215fdad246a6f95ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tinder")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tinder")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
