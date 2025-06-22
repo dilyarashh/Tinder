@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "0X4QHJP1tQfKSM5PFFvU0qVSVsTPiBXIlFIkyVKH9tY=",
+  "Source": "Tinder",
+  "BasePath": "_content/Tinder",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
