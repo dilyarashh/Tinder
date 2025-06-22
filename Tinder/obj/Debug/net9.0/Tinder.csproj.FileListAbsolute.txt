@@ -160,3 +160,4 @@
 /Users/dilararasidovna/Desktop/Tinder/Tinder/obj/Debug/net9.0/ref/Tinder.dll
 /Users/dilararasidovna/Desktop/Tinder/Tinder/bin/Debug/net9.0/BCrypt.Net-Next.dll
 /Users/dilararasidovna/Desktop/Tinder/Tinder/bin/Debug/net9.0/Swashbuckle.AspNetCore.Annotations.dll
+/Users/dilararasidovna/Desktop/Tinder/Tinder/obj/Debug/net9.0/Tinder.sourcelink.json
