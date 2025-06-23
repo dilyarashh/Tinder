@@ -40,6 +40,7 @@ public class UserPreferenceController (IUserPreferenceService preferenceService,
         return Ok();
     }
     
+    [Authorize(Policy = "TokenBlackListPolicy")]
     [HttpDelete("{toUserId}")]
     [SwaggerOperation(Summary = "Удаление поставленной реакции")]
     [SwaggerResponse(StatusCodes.Status200OK, "Реакция удалена")]

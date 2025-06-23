@@ -8,7 +8,7 @@ namespace Tinder.Services;
 
 public class UserReactionService(AppDbcontext dbcontext, TokenInteractions tokenService) : IUserReactionService
 {
-    public async Task<List<UserPreviewDTO>> GetLikedUsers(string? token)
+    public async Task<ReactionListDTO> GetLikedUsers(string? token)
     {
         var userId = Guid.Parse(tokenService.GetIdFromToken(token));
 
@@ -17,7 +17,7 @@ public class UserReactionService(AppDbcontext dbcontext, TokenInteractions token
             .Select(p => p.ToUser)
             .ToListAsync();
 
-        return likedUsers.Select(u => new UserPreviewDTO
+        var users = likedUsers.Select(u => new UserPreviewDTO
         {
             Id = u.Id,
             FirstName = u.FirstName,
@@ -27,9 +27,14 @@ public class UserReactionService(AppDbcontext dbcontext, TokenInteractions token
             Age = u.Age,
             About = u.About
         }).ToList();
-    }
 
-    public async Task<List<UserPreviewDTO>> GetDislikedUsers(string? token)
+        return new ReactionListDTO
+        {
+            Count = users.Count,
+            Users = users
+        };
+    }
+    public async Task<ReactionListDTO> GetDislikedUsers(string? token)
     {
         var userId = Guid.Parse(tokenService.GetIdFromToken(token));
 
@@ -38,7 +43,7 @@ public class UserReactionService(AppDbcontext dbcontext, TokenInteractions token
             .Select(p => p.ToUser)
             .ToListAsync();
 
-        return dislikedUsers.Select(u => new UserPreviewDTO
+        var users = dislikedUsers.Select(u => new UserPreviewDTO
         {
             Id = u.Id,
             FirstName = u.FirstName,
@@ -48,9 +53,14 @@ public class UserReactionService(AppDbcontext dbcontext, TokenInteractions token
             Age = u.Age,
             About = u.About,
         }).ToList();
+
+        return new ReactionListDTO
+        {
+            Count = users.Count,
+            Users = users
+        };
     }
-    
-    public async Task<List<UserPreviewDTO>> GetMatches(string? token)
+    public async Task<ReactionListDTO> GetMatches(string? token)
     {
         var userId = Guid.Parse(tokenService.GetIdFromToken(token));
 
@@ -72,7 +82,7 @@ public class UserReactionService(AppDbcontext dbcontext, TokenInteractions token
             .Where(u => matchedUserIds.Contains(u.Id))
             .ToListAsync();
 
-        return matchedUsers.Select(user => new UserPreviewDTO
+        var users = matchedUsers.Select(user => new UserPreviewDTO
         {
             Id = user.Id,
             FirstName = user.FirstName,
@@ -83,6 +93,35 @@ public class UserReactionService(AppDbcontext dbcontext, TokenInteractions token
             About = user.About,
             Telegram = user.Telegram
         }).ToList();
-    }
 
+        return new ReactionListDTO
+        {
+            Count = users.Count,
+            Users = users
+        };
+    }
+    
+    public async Task<ReactionStatsDTO> GetReactionStats(string? token)
+    {
+        var userId = Guid.Parse(tokenService.GetIdFromToken(token));
+
+        var likedMe = await dbcontext.UserPreferences
+            .Where(p => p.ToUserId == userId && p.IsLiked)
+            .ToListAsync();
+
+        var likesReceived = likedMe.Count;
+
+        var myLikes = await dbcontext.UserPreferences
+            .Where(p => p.FromUserId == userId && p.IsLiked)
+            .ToListAsync();
+
+        var matches = likedMe
+            .Count(like => myLikes.Any(m => m.ToUserId == like.FromUserId));
+
+        return new ReactionStatsDTO
+        {
+            LikesReceived = likesReceived,
+            Matches = matches
+        };
+    }
 }

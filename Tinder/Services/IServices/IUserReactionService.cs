@@ -4,7 +4,8 @@ namespace Tinder.Services.IServices;
 
 public interface IUserReactionService
 {
-    Task<List<UserPreviewDTO>> GetLikedUsers(string? token);
-    Task<List<UserPreviewDTO>> GetDislikedUsers(string? token);
-    Task<List<UserPreviewDTO>> GetMatches(string? token);
+    Task<ReactionListDTO> GetLikedUsers(string? token);
+    Task<ReactionListDTO> GetDislikedUsers(string? token);
+    Task<ReactionListDTO> GetMatches(string? token);
+    Task<ReactionStatsDTO> GetReactionStats(string? token);
 }
